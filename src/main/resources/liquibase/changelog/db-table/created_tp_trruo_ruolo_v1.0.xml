@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="created_tp_trruo_ruolo_v1.0" author="m.kerabandi">
+        <createTable tableName="TP_TRRUO_RUOLO">
+            <column remarks="Identificativo del ruolo" name="TRRUO_RUOLO_PK" type="BIGINT" defaultValueSequenceNext="role_sequence">
+                <constraints primaryKey="true"/>
+            </column>
+            <column remarks="Nome del ruolo" name="TRRUO_NOME" type="VARCHAR2(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column remarks="Descrizione del ruolo" name="TRRUO_DESCRIZIONE" type="VARCHAR2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Codice del ruolo" name="TRRUO_COD_RUOLO" type="VARCHAR2(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column remarks="Categoria del personal abilitato" name="TRRUO_CATPER_ABILITATO" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="constraints_tp_trruo_ruolo_v1.0" author="m.kerabandi">
+
+        <addForeignKeyConstraint baseTableName="TP_TRRUO_RUOLO"
+                                 baseColumnNames="TRRUO_CATPER_ABILITATO"
+                                 constraintName="TRRUO_CATP_CATEG_PERSONALE_FK"
+                                 referencedTableName="TP_CE_CATP_CATEG_PERSONALE"
+                                 referencedColumnNames="CECATP_PK"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,64 @@
+stages:
+  - build
+  - release
+  - deploy
+
+variables:
+  IMAGE_NAME: "${CI_REGISTRY}/almaviva-sipad/cessazione/auth-service/auth-service"
+  IMAGE_TAG: "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}${CI_COMMIT_BRANCH}${CI_COMMIT_TAG}"
+  DOCKER_FILE: "dev.Dockerfile"
+  SERVICE_NAME: "auth-service"
+
+build:
+  stage: build
+  interruptible: true
+  tags:
+    - bologna
+    - docker
+  image: docker:dind
+  before_script:
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker image build -f ${DOCKER_FILE} --build-arg GITLAB_CI_JOB_TOKEN="${CI_JOB_TOKEN}" --tag "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" .
+  after_script:
+    - docker image push "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+      when: on_success
+    - when: never
+
+release:
+  stage: release
+  interruptible: true
+  tags:
+    - bologna
+    - docker
+  image: docker:dind
+  before_script:
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker image pull "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+    - docker image tag "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" "${IMAGE_NAME}:${IMAGE_TAG}"
+  after_script:
+    - docker image push "${IMAGE_NAME}:${IMAGE_TAG}"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+      when: on_success
+    - when: never
+
+deploy:
+  stage: deploy
+  interruptible: true
+  tags:
+    - bologna
+    - docker
+  image:
+    name: bitnami/kubectl:1.22.6
+    entrypoint: [""]
+  script:
+    - kubectl config use-context almaviva-sipad/kubernetes-deployments:agent-sipad-dc2
+    - kubectl rollout restart -n sipad deploy/${SERVICE_NAME} -n sipad
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+      when: on_success
+    - when: never

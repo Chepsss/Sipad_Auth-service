@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="created_tp_trpri_privilegio_v1.0" author="m.kerabandi">
+        <createTable tableName="TP_TRPRI_PRIVILEGIO">
+            <column remarks="Identificativo del privilegio" name="TRPRI_PRIVILEGIO_PK" type="BIGINT" defaultValueSequenceNext="privilege_sequence">
+                <constraints primaryKey="true"/>
+            </column>
+            <column remarks="Nome del privilegio" name="TRPRI_NOME" type="VARCHAR2(200)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column remarks="Descrizione del privilegio" name="TRPRI_DESCRIZIONE" type="VARCHAR2(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Acronimo del privilegio" name="TRPRI_COD_PRIVILEGIO" type="VARCHAR2(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Configurabilità del privilegio" name="TRPRI_CONF" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,124 @@
+# Common configuration shared between all applications
+server:
+  port: ${HTTP_PORT:8081}
+  servlet:
+    context-path: /auth-service
+  error:
+    include-message: always
+  shutdown: graceful
+
+spring:
+  application:
+    name: auth-service
+  config:
+    use-legacy-processing: true
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://gedoc-postgres.cobctxxlaup3.eu-west-1.rds.amazonaws.com:5432/postgres?currentSchema=sipad_cessazione}
+    username: ${DATASOURCE_USER:postgres}
+    password: ${DATASOURCE_PWD:Almaviva1234!}
+    driver-class-name: ${DB_CLASS_DRIVER:org.postgresql.Driver}
+    hikari:
+      pool-name: hikari-auth
+      auto-commit: false
+      idle-timeout: 60000 # 1 min - Maximum amount of time that a connection can to sit idle in the pool
+      maximum-pool-size: 10
+      minimum-idle: 5
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:
+    database: default
+    properties:
+      hibernate.jdbc.fetch_size: 25
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.batch_versioned_data: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+    hibernate:
+      ddl-auto: ${DDL_AUTO:validate}
+    show-sql: ${SHOW_SQL:false}
+  liquibase:
+    contexts: ${LIQUIBASE_CONTEXTS:dev}
+    change-log: classpath:liquibase/changelog-master.xml
+    enabled: ${LIQUIBASE_ENABLED:false}
+    drop-first: false
+  mail:
+    host: ${MAIL_HOST:leonida.netserv.it}
+    port: ${MAIL_PORT:25}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:no}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS_ENABLE:false}
+        debug: ${MAIL_DEBUG:true}
+    protocol: ${PROTOCOL:smtp}
+    test-connection: false
+    default-encoding: UTF-8
+    username: ${MAIL_USER:}
+    password: ${MAIL_PWD:}
+  rabbitmq: # Indirizzo del server e credenziali di accesso a rabbitMQ
+    host: ${RABBITMQ_HOST:sipad-centrale.rabbit-system.app.gedocc.giottolabs.com}
+    username: ${RABBITMQ_USERNAME:3-cszimp}
+    password: ${RABBITMQ_PASSWORD:v2LLF97GVV9uYCT}
+    listener:
+      simple:
+        auto-startup: ${RABBIT_LISTENER_AUTO_STARTUP:true}
+
+# Identificativo del prefisso delle code, composto dall'ID del verticale e l'acronimo registrato sul sipad
+queuehelper.verticale: ${RABBITMQ_VERTICALE:3-cszimp}
+queue: ${QUEUE_ENABLE:true}
+
+management:
+  health:
+    mail:
+      enabled: ${HEALTH_MAIL_ENABLED:false}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ORIGINS:*}
+    allowed-methods: ${CORS_METHODS:*}
+    allowed-headers: ${CORS_HEADERS:*}
+    max-age: ${CORS_MAXAGE:3600}
+
+logging:
+  level:
+    it.almaviva.difesa: ${LOGGING_AUTH_LEVEL:INFO}
+  file:
+    path: ${LOGGING_PATH:./logs}
+    name: ${LOGGING_NAME:logs/${spring.application.name}.log}
+  logback:
+    rollingpolicy:
+      max-history: ${LOGGING_HISTORY:5}
+      max-file-size: ${LOGGING_MAX_SIZE:10MB}
+  pattern:
+    console: "%-30(%d{dd-MM-yyyy HH:mm:ss.SSS} %highlight(%-5level) %magenta([%thread]) %cyan(%logger{10}) %yellow([%file:%line]) : %msg%throwable%n)"
+    file: "%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level [%thread] %logger{10} [%file:%line] : %msg%throwable%n"
+
+spring.zipkin.enabled: ${ZIPKIN_ENABLED:false}
+spring.zipkin.base-url: ${ZIPKIN_BASE_URL:http://zipkin-server:9411}
+
+cessazione:
+  url: ${CESSAZIONE_URL:https://cessazione-web.flosslab.com/cessazione-web}
+  sendmail:
+    enable: ${SEND_MAIL_ENABLE:true}
+    mock:
+      enable: ${MOCK_ENABLE:false}
+      distributionlist: ${MOCK_DISTRIBUTION_LIST:melis.kerabandi@netserv.it,marco.diana@flosslab.com,gianluca.farris@flosslab.com,davide.nurra@flosslab.com,giulia.pitzalis@flosslab.com}
+
+jwt:
+  header: X-Auth
+  secret: ${JWT_SECRET_KEY:36DAD9C1C9A790EAA3F02FFCAA6EAFD41E1D9507557C42871001A24D984D88B20656BC76856B93A16CCD6D6F74D956047E8FFDE65DEA38AD8194383ADD3906A1}
+  expiration: ${JWT_EXPIRATION:7200}
+
+application:
+  procedure-service:
+    baseurl: ${PROCEDURE_SERVICE_URL:http://procedure-service:8083/procedure-service}
+  ms-sipad:
+    baseUrl: ${MS_SIPAD_API_URL:http://ms-sipad-api:8089/ms-sipad-api}
+  security-manager-api:
+    baseUrl: ${SECURITY_MANAGER_API_URL:http://security-manager-api:8086/security-manager-api}

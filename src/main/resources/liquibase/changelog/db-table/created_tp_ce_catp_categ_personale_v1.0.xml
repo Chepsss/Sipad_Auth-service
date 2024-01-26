@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="created_tp_ce_catp_categ_personale_v1.0" author="m.kerabandi">
+        <createTable tableName="TP_CE_CATP_CATEG_PERSONALE">
+            <column name="CECATP_PK" type="BIGINT" defaultValueSequenceNext="catpers_sequence">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CECATP_COD" type="VARCHAR2(25)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="CECATP_DESC" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert_tp_ce_catp_categ_personale_v1.0" author="m.kerabandi">
+        <loadData tableName="TP_CE_CATP_CATEG_PERSONALE"
+                  file="liquibase/changelog/data/tr_ce_catp_categ_personale_v1.0.csv"
+                  separator=";"/>
+    </changeSet>
+
+</databaseChangeLog>

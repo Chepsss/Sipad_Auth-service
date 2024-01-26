@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="created_tr_trutr_utente_ruolo_v1.0" author="m.kerabandi">
+        <createTable tableName="TR_TRUTR_UTENTE_RUOLO">
+            <column name="TRUTR_TRUTE_UTENTE_PK" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRUTR_TRRUO_RUOLO_PK" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="TR_TRUTR_UTENTE_RUOLO"
+                                 baseColumnNames="TRUTR_TRUTE_UTENTE_PK"
+                                 constraintName="TRUTR_TRUTE_UTENTE_FK"
+                                 referencedTableName="TB_TRUTE_UTENTE"
+                                 referencedColumnNames="TRUTE_UTENTE_PK"/>
+
+        <addForeignKeyConstraint baseTableName="TR_TRUTR_UTENTE_RUOLO"
+                                 baseColumnNames="TRUTR_TRRUO_RUOLO_PK"
+                                 constraintName="TRUTR_TRRUO_RUOLO_FK"
+                                 referencedTableName="TP_TRRUO_RUOLO"
+                                 referencedColumnNames="TRRUO_RUOLO_PK"/>
+    </changeSet>
+
+</databaseChangeLog>

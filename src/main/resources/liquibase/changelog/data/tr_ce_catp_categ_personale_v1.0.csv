@@ -1,0 +1,8 @@
+CECATP_PK;CECATP_COD;CECATP_DESC
+1;Uff.;Ufficiali
+2;SottUff.;Sottufficiali
+3;Gra.;Graduati
+4;Tru.;Militari di Truppa
+5;Leva;Militari di Leva
+7;DEF;DA DEFINIRE (in attesa di bonifica dei dati)
+8;Civ;Personale Civile

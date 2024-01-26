@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:remove="all">SIPAD - notifica autorizzazioni</title>
+</head>
+<body>
+<p>
+    L'Amministratore del sistema ha creato/modificato le tue abilitazioni al sistema SIPAD - Gestione procedimenti di Cessazione.
+</p>
+<p>Attualmente sono attivi sul tuo profilo i seguenti Ruoli:</p>
+<ul>
+    <li th:each="role: ${roles}"><span th:text="${role}"></span></li>
+</ul>
+
+<p>Il sistema Cessazione è raggiungibile a questo link: <a th:href="@{{cessazioneUrl}(cessazioneUrl=${url})}"><span th:text="${url}"></span></a>.</p>
+
+<hr>
+
+<p><i>Questa è una comunicazione automatica, non è prevista una risposta.</i></p>
+
+</body>
+</html>

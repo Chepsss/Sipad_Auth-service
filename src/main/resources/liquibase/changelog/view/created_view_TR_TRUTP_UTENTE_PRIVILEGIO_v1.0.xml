@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet id="created_view_TR_TRUTP_UTENTE_PRIVILEGIO_v1.0" author="m.kerabandi">
+        <createView replaceIfExists="true"
+                    viewName="TR_TRUTP_UTENTE_PRIVILEGIO">
+            select ur.trutr_trute_utente_pk as TRUTP_TRUTE_UTENTE_PK, rp.trrup_trpri_privilegio_pk as TRUTP_TRPRI_PRIVILEGIO_PK
+                from tr_trutr_utente_ruolo as ur
+                     inner join tp_trrup_ruolo_privilegio as rp on rp.trrup_trruo_ruolo_pk = ur.trutr_trruo_ruolo_pk;
+        </createView>
+    </changeSet>
+</databaseChangeLog>

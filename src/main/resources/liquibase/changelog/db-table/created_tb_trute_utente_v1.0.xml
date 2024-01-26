@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="created_tb_trute_utente_v1.0" author="m.kerabandi">
+        <createTable tableName="TB_TRUTE_UTENTE">
+            <column remarks="Identificativo dell'utente" name="TRUTE_UTENTE_PK" type="BIGINT" defaultValueSequenceNext="user_sequence">
+                <constraints primaryKey="true"/>
+            </column>
+            <column remarks="Identificativo dell'utente su Sipad" name="TRUTE_ANDIP_ID_PK" type="NUMBER(12)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column remarks="" name="TRUTE_COD_FFAA" type="VARCHAR2(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="" name="TRUTE_INATTIVO" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Codice dell'utente che effettua l'inserimento" name="TRUTE_COD_INS" type="VARCHAR2(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Data inserimento del record" defaultValueComputed="Current_timestamp" name="TRUTE_DATA_INS" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Codice dell'utente che effettua l'ultimo aggiornamento" name="TRUTE_COD_ULT_AGG" type="VARCHAR2(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Data dell'ultimo aggiornamento del record" defaultValueComputed="Current_timestamp" name="TRUTE_DATA_ULT_AGG" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

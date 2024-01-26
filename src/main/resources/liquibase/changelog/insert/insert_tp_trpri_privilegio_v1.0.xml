@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert_tp_trpri_privilegio_v1.0" author="m.kerabandi">
+        <loadUpdateData tableName="TP_TRPRI_PRIVILEGIO"
+                        file="liquibase/changelog/data/tp_trpri_privilegio_v1.0.csv"
+                        separator=";" primaryKey="TRPRI_PRIVILEGIO_PK"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <!-- sequenze -->
+    <include file="liquibase/changelog/sequence/privilege_sequence.xml"/>
+    <include file="liquibase/changelog/sequence/role_sequence.xml"/>
+    <include file="liquibase/changelog/sequence/token_sequence.xml"/>
+    <include file="liquibase/changelog/sequence/user_sequence.xml"/>
+    <include file="liquibase/changelog/sequence/catpers_sequence.xml"/>
+
+    <!-- tipologiche -->
+    <include file="liquibase/changelog/db-table/created_tp_trpri_privilegio_v1.0.xml"/>
+    <include file="liquibase/changelog/insert/insert_tp_trpri_privilegio_v1.0.xml"/>
+    <include file="liquibase/changelog/db-table/created_tp_ce_catp_categ_personale_v1.0.xml"/>
+    <include file="liquibase/changelog/db-table/created_tp_trruo_ruolo_v1.0.xml"/>
+    <include file="liquibase/changelog/insert/insert_tp_trruo_ruolo_v1.0.xml"/>
+
+    <!-- analitiche -->
+    <include file="liquibase/changelog/db-table/created_tb_trute_utente_v1.0.xml"/>
+    <include file="liquibase/changelog/insert/insert_tb_trute_utente_v1.0.xml" context="dev,stage"/>
+    <include file="liquibase/changelog/db-table/created_tb_trutt_utente_token_v1.0.xml"/>
+
+    <!-- relazionali -->
+    <include file="liquibase/changelog/db-table/created_tr_trrup_ruolo_privilegio_v1.0.xml"/>
+    <include file="liquibase/changelog/insert/insert_tr_trrup_ruolo_privilegio_v1.0.xml"/>
+    <include file="liquibase/changelog/db-table/created_tr_trutr_utente_ruolo_v1.0.xml"/>
+    <include file="liquibase/changelog/insert/insert_tr_trutr_utente_ruolo_v1.0.xml" context="dev,stage"/>
+
+    <!-- viste -->
+    <include file="liquibase/changelog/view/created_view_TR_TRUTP_UTENTE_PRIVILEGIO_v1.0.xml"/>
+
+</databaseChangeLog>

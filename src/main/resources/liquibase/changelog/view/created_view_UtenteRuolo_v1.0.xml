@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet id="created_view_UtenteRuolo_v1.0" author="m.kerabandi">
+        <createView replaceIfExists="true"
+                    viewName="VW_UTENTE_RUOLO">
+            select *
+            from TB_CE_UTE_UTENTE u
+            inner join TR_CE_UTR_UTENTE_RUOLO ur
+            on u.CEUTE_UTENTE_PK = ur.CEUTR_CEUTE_UTENTE_PK
+            inner join TP_CE_RUO_RUOLO r
+            on r.CERUO_RUOLO_PK = ur.CEUTR_CERUO_RUOLO_PK
+        </createView>
+    </changeSet>
+</databaseChangeLog>

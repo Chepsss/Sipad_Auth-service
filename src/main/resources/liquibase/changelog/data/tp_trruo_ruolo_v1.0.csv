@@ -1,0 +1,15 @@
+TRRUO_RUOLO_PK;TRRUO_COD_RUOLO;TRRUO_NOME;TRRUO_DESCRIZIONE;TRRUO_CATPER_ABILITATO
+1;ROLE_ADMIN;Amministratore Cessazione;Amministratore Cessazione;
+2;ROLE_INSTRUCTOR_GRADUATED;Istruttore Amministrativo Graduati;Istruttore Amministrativo Graduati;3
+3;ROLE_INSTRUCTOR_OFFICER;Istruttore Amministrativo Ufficiali;Istruttore Amministrativo Ufficiali;1
+4;ROLE_INSTRUCTOR_SUB_OFFICER;Istruttore Amministrativo Sottufficiali;Istruttore Amministrativo Sottufficiali;2
+5;ROLE_APPROVER_GRADUATED;Approvatore Graduati;Approvatore Graduati;3
+6;ROLE_APPROVER_OFFICER;Approvatore Ufficiali;Approvatore Ufficiali;1
+7;ROLE_APPROVER_SUB_OFFICER;Approvatore Sottufficiali;Approvatore Sottufficiali;2
+8;ROLE_SIGNATURE_GRADUATED;Titolare Firma Graduati;Titolare Firma Graduati;3
+9;ROLE_SIGNATURE_OFFICER;Titolare Firma Ufficiali;Titolare Firma Ufficiali;1
+10;ROLE_SIGNATURE_SUB_OFFICER;Titolare Firma Sottufficiali;Titolare Firma Sottufficiali;2
+11;ROLE_MANAGER_GRADUATED;Responsabile Procedimento Graduati;Responsabile Procedimento Graduati;3
+12;ROLE_MANAGER_OFFICER;Responsabile Procedimento Ufficiali;Responsabile Procedimento Ufficiali;1
+13;ROLE_MANAGER_SUB_OFFICER;Responsabile Procedimento Sottufficiali;Responsabile Procedimento Sottufficiali;2
+14;ROLE_TEMPLATE_ADMIN;Amministratore Template;Amministratore Template;

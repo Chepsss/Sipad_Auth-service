@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert_tp_trrup_ruolo_privilegio_v1.0" author="m.kerabandi">
+        <loadUpdateData tableName="TP_TRRUP_RUOLO_PRIVILEGIO"
+                        file="liquibase/changelog/data/tr_trrup_ruolo_privilegio_v1.0.csv"
+                        separator=";" primaryKey="TRRUP_TRRUO_RUOLO_PK,TRRUP_TRPRI_PRIVILEGIO_PK"/>
+    </changeSet>
+</databaseChangeLog>

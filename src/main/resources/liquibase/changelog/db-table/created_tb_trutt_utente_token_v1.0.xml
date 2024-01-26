@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="created_tb_trutt_utente_token_v1.0" author="m.kerabandi">
+        <createTable tableName="TB_TRUTT_UTENTE_TOKEN">
+            <column name="TRUTT_UTENTE_TOKEN_PK" type="BIGINT" defaultValueSequenceNext="token_sequence">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="TRUTT_TOKEN" type="VARCHAR2(20000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRUTT_REFRESH_TOKEN" type="VARCHAR2(2000)">
+                <!--<constraints nullable="false"/>-->
+            </column>
+            <column name="TRUTE_UTENTE_PK" type="BIGINT"/>
+            <column name="TRUTT_UUID" type="VARCHAR2(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COD_INS" type="VARCHAR2(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="Current_timestamp" name="DATA_INS" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COD_ULT_AGG" type="VARCHAR2(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="Current_timestamp" name="DATA_ULT_AGG" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="TB_TRUTT_UTENTE_TOKEN"
+                                 baseColumnNames="TRUTE_UTENTE_PK"
+                                 constraintName="TRUTT_UTENTE_FK"
+                                 referencedTableName="TB_TRUTE_UTENTE"
+                                 referencedColumnNames="TRUTE_UTENTE_PK"/>
+    </changeSet>
+</databaseChangeLog>

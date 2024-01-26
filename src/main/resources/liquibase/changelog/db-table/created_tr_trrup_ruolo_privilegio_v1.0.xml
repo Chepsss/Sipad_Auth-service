@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="created_tp_trrup_ruolo_privilegio_v1.0" author="m.kerabandi">
+        <createTable tableName="TP_TRRUP_RUOLO_PRIVILEGIO">
+            <column remarks="Identificativo del ruolo" name="TRRUP_TRRUO_RUOLO_PK" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Identificativo del privilegio" name="TRRUP_TRPRI_PRIVILEGIO_PK" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="TP_TRRUP_RUOLO_PRIVILEGIO"
+                                 baseColumnNames="TRRUP_TRRUO_RUOLO_PK"
+                                 constraintName="TRRUP_TRRUO_RUOLO_FK"
+                                 referencedTableName="TP_TRRUO_RUOLO"
+                                 referencedColumnNames="TRRUO_RUOLO_PK"/>
+
+        <addForeignKeyConstraint baseTableName="TP_TRRUP_RUOLO_PRIVILEGIO"
+                                 baseColumnNames="TRRUP_TRPRI_PRIVILEGIO_PK"
+                                 constraintName="TRRUP_TRPRI_PRIVILEGIO_FK"
+                                 referencedTableName="TP_TRPRI_PRIVILEGIO"
+                                 referencedColumnNames="TRPRI_PRIVILEGIO_PK"/>
+
+    </changeSet>
+
+</databaseChangeLog>

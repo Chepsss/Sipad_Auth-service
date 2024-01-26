@@ -1,0 +1,60 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- development
+
+pool: almatoolbox2-default-linux
+
+#  vmImage: ubuntu-latest
+#almatoolbox2-default-linux
+#ubuntu-latest
+
+variables:
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+
+steps:
+- task: Cache@2
+  inputs:
+    key: 'maven | "$(Agent.OS)" | **/pom.xml'
+    restoreKeys: |
+      maven | "$(Agent.OS)"
+      maven
+    path: $(MAVEN_CACHE_FOLDER)
+  displayName: Cache Maven local repo
+
+- task: ArtifactoryMaven@2
+  displayName: 'Maven Package'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: '-B clean package'
+    artifactoryResolverService: 'difesa-sipad-jfrog-maven'
+    targetResolveReleaseRepo: 'remote-repos'
+    targetResolveSnapshotRepo: 'libs-snapshot'
+    #artifactoryDeployService: 'artifactory-jfrog-cloud'
+    #targetDeployReleaseRepo: 'gedoc-maven'
+    #targetDeploySnapshotRepo: 'gedoc-maven'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'difesa-sipad-jfrog-docker'
+    repository: 'difesa-sipad-docker/cessazione/be-auth-service'
+    command: 'buildAndPush'
+    Dockerfile: '$(Agent.BuildDirectory)/s/dev.Dockerfile2'
+  displayName: 'Run Docker build and push'
+
+- task: CopyFiles@2
+  displayName: 'Copy File to Staging Directory'
+  inputs:
+    Contents: 'deploy-k8s.yml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish to Staging Directory'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
